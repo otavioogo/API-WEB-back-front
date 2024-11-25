@@ -41,7 +41,7 @@ app.get('/usuarios', async (req, res ) => {  // listando os usuarios metodo get
     }   
 )
 
-app.put('/usuarios/:id', async (req , res) => {  // criando os usuarios com metodo post json
+app.put('/usuarios/:id', async (req , res) => {  // Atualizando os usuarios
 
     await prisma.user.update({
         where: { id: req.params.id },
@@ -58,7 +58,7 @@ app.put('/usuarios/:id', async (req , res) => {  // criando os usuarios com meto
 })
 
 
-app.delete('/usuarios/:id', async (req , res) => {  // criando os usuarios com metodo post json
+app.delete('/usuarios/:id', async (req , res) => {  // Deletando usuarios 
 
     await prisma.user.delete({
         where: { id: req.params.id }
