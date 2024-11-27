@@ -8,19 +8,6 @@ app.use(express.json()) // Configura a aplicação para interpretar o corpo das 
 
 // Rota para criação de usuários usando o método POST
 app.post('/usuarios', async (req, res) => {
-    let users = [] // Inicializa uma lista vazia para armazenar usuários, caso necessário
-
-    // Verifica se existem parâmetros de consulta na URL e busca usuários com base nesses parâmetros
-    if (req.query) {
-        users = await prisma.user.findMany({
-            where: {
-                name: req.query.name, // Filtro opcional por nome
-                age: req.query.age // Filtro opcional por idade
-            }
-        })
-    } else {
-        users = await prisma.user.findMany() // Retorna todos os usuários, caso não haja filtros
-    }
 
     // Cria um novo usuário no banco de dados com os dados enviados no corpo da requisição
     await prisma.user.create({
@@ -37,7 +24,21 @@ app.post('/usuarios', async (req, res) => {
 
 // Rota para listar todos os usuários usando o método GET
 app.get('/usuarios', async (req, res) => {
-    const users = await prisma.user.findMany() // Busca todos os usuários no banco de dados
+    //const users = await prisma.user.findMany() // Busca todos os usuários no banco de dados
+
+    let users = [] // Inicializa uma lista vazia para armazenar usuários, caso necessário
+
+    // Verifica se existem parâmetros de consulta na URL e busca usuários com base nesses parâmetros
+    if (req.query) {
+        users = await prisma.user.findMany({
+            where: {
+                name: req.query.name, // Filtro opcional por nome
+                age: req.query.age // Filtro opcional por idade
+            }
+        })
+    } else {
+        users = await prisma.user.findMany() // Retorna todos os usuários, caso não haja filtros
+    }
 
     res.status(200).json(users) // Retorna uma resposta com status 200 (Sucesso) e a lista de usuários
 })
