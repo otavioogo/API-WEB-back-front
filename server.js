@@ -1,10 +1,12 @@
 import express from 'express' // Importa o framework Express para criação de APIs
 import { PrismaClient } from '@prisma/client' // Importa o cliente do Prisma para interação com o banco de dados
+import cors from 'cors'
 
 const prisma = new PrismaClient() // Instancia o cliente do Prisma para realizar operações no banco
 
 const app = express() // Inicializa a aplicação Express
 app.use(express.json()) // Configura a aplicação para interpretar o corpo das requisições em JSON
+app.use(cors()) // Habilita o CORS para permitir requisições de origens extern
 
 // Rota para criação de usuários usando o método POST
 app.post('/usuarios', async (req, res) => {
